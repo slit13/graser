@@ -1,9 +1,8 @@
-#include <SDL2/SDL_events.h>
-#include <bits/pthreadtypes.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <unistd.h>
 #include <readline/readline.h>
 #include <SDL2/SDL.h>
@@ -102,10 +101,18 @@ int8_t parseline(SDL_Window *win, SDL_Renderer *rend, char *line)
 }
 
 // TODO: handle arguments
-int main(void)
+int main(int argc, char **argv)
 {
+	bool timer = false;
+	for (uint32_t i = 0; i < argc; i++) {
+		if (streq(argv[i], "timer")) {
+			timer = true;
+		}
+	}
+
 	SDL_Init(SDL_INIT_VIDEO);
-	SDL_Window *win = SDL_CreateWindow("graser", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
+	SDL_Window *win = SDL_CreateWindow(
+		"graser", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
 	SDL_Renderer *rend = SDL_CreateRenderer(win, -1, 0);
 
 	SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);
@@ -117,6 +124,9 @@ int main(void)
 	bool running = true;
 	while (running) {
 		line = readline("> ");
+
+		clock_t start = clock();
+
 		int8_t status = parseline(win, rend, line);
 		if (status == STAT_EXIT) {
 			running = false;
@@ -125,6 +135,11 @@ int main(void)
 		}
 
 		SDL_RenderPresent(rend);
+
+		clock_t end = clock();
+		if (timer) {
+			printf("\tclocks: %ld\n", end - start);
+		}
 	}
 
 	SDL_DestroyWindow(win);

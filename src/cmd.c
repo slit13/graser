@@ -1,4 +1,3 @@
-#include <SDL2/SDL_render.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <SDL2/SDL.h>
@@ -10,13 +9,30 @@ int8_t cmdpos(SDL_Window *win, char **args, uint16_t nargs)
 		printf("'line' requires 2 arguments\n");
 		return STAT_ERROR;
 	}
-	if (!strisnum(args[0]) || !strisnum(args[1])) {
-		printf("one argument isn't a number\n");
-		return STAT_ERROR;
+
+	int32_t x = 0;
+	int32_t y = 0;
+	if (!strisnum(args[0])) {
+		if (streq(args[0], "c") || streq(args[0], "center")) {
+			x = SDL_WINDOWPOS_CENTERED;
+		} else {
+			printf("argument %s is invalid\n", args[0]);
+			return STAT_ERROR;
+		}
+	} else {
+		x = atoi(args[0]);
+	}
+	if (!strisnum(args[1])) {
+		if (streq(args[1], "c") || streq(args[1], "center")) {
+			x = SDL_WINDOWPOS_CENTERED;
+		} else {
+			printf("argument %s is invalid\n", args[1]);
+			return STAT_ERROR;
+		}
+	} else {
+		y = atoi(args[1]);
 	}
 
-	int32_t x = atoi(args[0]);
-	int32_t y = atoi(args[1]);
 	SDL_SetWindowPosition(win, x, y);
 
 	return STAT_OK;

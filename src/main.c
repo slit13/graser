@@ -61,7 +61,6 @@ bool strisnum(char *s)
 
 int8_t parseline(SDL_Window *win, SDL_Renderer *rend, char *line)
 {
-#define streq(str1, str2) (!strcmp(str1, str2))
 	uint32_t nargs = 0;
 	char **toks = tokenize(line, &nargs);
 	char  *cmd = toks[0];
@@ -106,7 +105,7 @@ int8_t parseline(SDL_Window *win, SDL_Renderer *rend, char *line)
 int main(void)
 {
 	SDL_Init(SDL_INIT_VIDEO);
-	SDL_Window *win = SDL_CreateWindow("graser", 0, 0, 800, 600, 0);
+	SDL_Window *win = SDL_CreateWindow("graser", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
 	SDL_Renderer *rend = SDL_CreateRenderer(win, -1, 0);
 
 	SDL_SetRenderDrawColor(rend, 0, 0, 0, 255);

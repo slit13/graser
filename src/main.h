@@ -2,6 +2,8 @@
 
 #include <stdbool.h>
 
+#define streq(str1, str2) (!strcmp(str1, str2))
+
 enum return_status {
 	STAT_EXIT  = -1,
 	STAT_OK    =  0,

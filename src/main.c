@@ -12,7 +12,7 @@ enum return_status {
 	STAT_ERROR   =   1
 };
 
-// TODO: code was stolen, rewrite
+// TODO: code was stolen, rewrite it
 char **tokenize(char *line, uint32_t *n)
 {
 #define BUFSZ 64
@@ -47,6 +47,7 @@ char **tokenize(char *line, uint32_t *n)
 	return tokens;
 }
 
+// TODO: actually print help
 void printhelp(void)
 {
 	printf("read the README you dum dum\n");
@@ -64,6 +65,9 @@ bool strisnum(char *s)
 	return true;
 }
 
+// TODO: make this function be a large elif statement that calls othe functions
+//       aka turn everything into functions
+// TODO: add more commands
 int8_t parseline(SDL_Renderer *rend, char *line)
 {
 #define streq(str1, str2) (!strcmp(str1, str2))
@@ -148,6 +152,8 @@ int8_t parseline(SDL_Renderer *rend, char *line)
 	return 0;
 }
 
+// TODO: I know there's some better way to write this function
+// TODO: handle arguments
 int main(void)
 {
 	char *line = NULL;

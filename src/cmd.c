@@ -56,6 +56,59 @@ int8_t cmdsize(SDL_Window *win, char **args, uint16_t nargs)
 	return STAT_OK;
 }
 
+// TODO: code was stolen, rewrite
+int8_t cmdcircle(SDL_Renderer *rend, char **args, uint16_t nargs)
+{
+	if (nargs < 3) {
+		printf("'circle' requires 3 arguments\n");
+		return STAT_ERROR;
+	}
+	if (!strisnum(args[0]) || !strisnum(args[1])) {
+		printf("one argument isn't a number\n");
+		return STAT_ERROR;
+	}
+
+	int32_t centrex = atoi(args[0]);
+	int32_t centrey = atoi(args[1]);
+	int32_t radius  = atoi(args[2]);
+
+	const int32_t diameter = (radius * 2);
+	int32_t x = (radius - 1);
+	int32_t y = 0;
+	int32_t tx = 1;
+	int32_t ty = 1;
+	int32_t error = (tx - diameter);
+
+	while (x >= y)
+	{
+		if (bfill) {
+			printf("'circle' doesn't currently support fill\n");
+		} {
+			SDL_RenderDrawPoint(rend, centrex + x, centrey - y);
+			SDL_RenderDrawPoint(rend, centrex + x, centrey + y);
+			SDL_RenderDrawPoint(rend, centrex - x, centrey - y);
+			SDL_RenderDrawPoint(rend, centrex - x, centrey + y);
+			SDL_RenderDrawPoint(rend, centrex + y, centrey - x);
+			SDL_RenderDrawPoint(rend, centrex + y, centrey + x);
+			SDL_RenderDrawPoint(rend, centrex - y, centrey - x);
+			SDL_RenderDrawPoint(rend, centrex - y, centrey + x);
+		}
+
+		if (error <= 0) {
+			++y;
+			error += ty;
+			ty += 2;
+		}
+		if (error > 0) {
+			--x;
+			tx += 2;
+			error += (tx - diameter);
+		}
+	}
+
+	return STAT_OK;
+}
+
 int8_t cmdclear(SDL_Renderer *rend, char **args, uint16_t nargs)
 {
 	SDL_RenderClear(rend);

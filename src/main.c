@@ -71,6 +71,8 @@ int8_t parseline(SDL_Window *win, SDL_Renderer *rend, char *line)
 		return cmdpos(win, args, nargs);
 	} else if (streq(cmd, "size")) {
 		return cmdsize(win, args, nargs);
+	} else if (streq(cmd, "circle")) {
+		return cmdcircle(rend, args, nargs);
 	} else if (streq(cmd, "clear")) {
 		return cmdclear(rend, args, nargs);
 	} else if (streq(cmd, "color")) {

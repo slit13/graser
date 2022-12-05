@@ -8,6 +8,7 @@
 defwincmd(pos);
 defwincmd(size);
 
+defrendcmd(circle);
 defrendcmd(clear);
 defrendcmd(color);
 defrendcmd(colorq);

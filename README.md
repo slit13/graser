@@ -1,3 +1,5 @@
+# TODO: rewrite in Nim
+
 # graser - GRAphics command parSER
 
 Write commands, see them

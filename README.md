@@ -1,4 +1,4 @@
-# TODO: rewrite in Nim
+# TODO: complete redesign and rewrite
 
 # graser - GRAphics command parSER
 
